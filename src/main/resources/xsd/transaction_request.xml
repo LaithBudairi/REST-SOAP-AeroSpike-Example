@@ -1,0 +1,13 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:us="https://www.w3schools.com">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <getTransactionRequestDetails>
+            <us:id>1</us:id>
+            <us:from>1</us:from>
+            <us:to>2</us:to>
+            <us:amount>25.5</us:amount>
+        </getTransactionRequestDetails>
+    </soapenv:Body>
+</soapenv:Envelope>
+
