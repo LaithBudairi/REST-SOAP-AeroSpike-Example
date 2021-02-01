@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="https://www.w3schools.com"
+           targetNamespace="http://techprimers.com/spring-boot-soap-example"
            elementFormDefault="qualified">
 
     <xs:element name="getTransactionDetailsRequest">

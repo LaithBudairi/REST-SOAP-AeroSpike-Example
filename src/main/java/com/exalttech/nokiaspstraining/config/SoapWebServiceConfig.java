@@ -25,10 +25,10 @@ public class SoapWebServiceConfig extends WsConfigurerAdapter {
     @Bean(name = "transactions")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema transactionSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("UserPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("https://www.w3schools.com");
         wsdl11Definition.setSchema(transactionSchema);
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setPortTypeName("TransactionPort");
+        wsdl11Definition.setTargetNamespace("http://techprimers.com/spring-boot-soap-example");
         return wsdl11Definition;
     }
     @Bean

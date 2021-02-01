@@ -1,13 +1,11 @@
 package com.exalttech.nokiaspstraining.controller.rest;
 
-import com.aerospike.client.AerospikeClient;
 import com.exalttech.nokiaspstraining.Service.AccountHolderServiceImp;
 import com.exalttech.nokiaspstraining.model.AccountHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/")
