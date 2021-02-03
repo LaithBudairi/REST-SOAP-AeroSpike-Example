@@ -27,7 +27,6 @@ public class AccountHolderServiceImp implements AccountHolderService {
     @Override
     public List<AccountHolder> getAllAccountHolders() {
         QueryPolicy queryPolicy = new QueryPolicy();
-//        queryPolicy.setTimeout(3);
         queryPolicy.sendKey = true;
 
         Statement stmt = new Statement();
@@ -71,7 +70,6 @@ public class AccountHolderServiceImp implements AccountHolderService {
     @Override
     public boolean createNewAccount(AccountHolder accountHolder) {
         WritePolicy writePolicy = new WritePolicy();
-        writePolicy.setTimeout(3);
 
         Key key = new Key(namespace, "account_holder", accountHolder.getId());
         Bin firstName = new Bin("firstName", accountHolder.getFirstName());
@@ -79,6 +77,16 @@ public class AccountHolderServiceImp implements AccountHolderService {
         Bin balance = new Bin("balance", accountHolder.getBalance());
 
         aerospikeClient.put(writePolicy, key, firstName, lastName, balance);
+        return true;
+    }
+
+    @Override
+    public boolean updateBalance(String id, double amount) {
+        WritePolicy writePolicy = new WritePolicy();
+
+        Key key = new Key(namespace, "account_holder", id);
+        Bin balance = new Bin("balance", amount);
+        aerospikeClient.put(writePolicy, key, balance);
         return true;
     }
 }

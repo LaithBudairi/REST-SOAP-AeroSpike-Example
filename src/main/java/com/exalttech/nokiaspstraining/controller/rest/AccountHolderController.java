@@ -3,6 +3,7 @@ package com.exalttech.nokiaspstraining.controller.rest;
 import com.exalttech.nokiaspstraining.Service.AccountHolderServiceImp;
 import com.exalttech.nokiaspstraining.model.AccountHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class AccountHolderController {
     }
 
     @PostMapping(value = "accountHolder")
+    @ResponseStatus(HttpStatus.CREATED)
     public boolean createNewAccount(@RequestBody AccountHolder accountHolder) {
         return accountHolderService.createNewAccount(accountHolder);
     }

@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @Configuration
-//@ComponentScan(basePackages = {"com.exalttech"})
 public class NokiaSpsTrainingApplication {
 
     @Autowired
