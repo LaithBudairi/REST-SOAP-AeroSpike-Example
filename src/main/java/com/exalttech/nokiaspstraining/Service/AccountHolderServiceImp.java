@@ -6,11 +6,9 @@ import com.aerospike.client.Key;
 import com.aerospike.client.Record;
 import com.aerospike.client.policy.QueryPolicy;
 import com.aerospike.client.policy.WritePolicy;
-import com.aerospike.client.query.Filter;
 import com.aerospike.client.query.RecordSet;
 import com.aerospike.client.query.Statement;
 import com.exalttech.nokiaspstraining.model.AccountHolder;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,11 +80,10 @@ public class AccountHolderServiceImp implements AccountHolderService {
 
     @Override
     public boolean updateBalance(String id, double amount) {
-        WritePolicy writePolicy = new WritePolicy();
-
         Key key = new Key(namespace, "account_holder", id);
-        Bin balance = new Bin("balance", amount);
-        aerospikeClient.put(writePolicy, key, balance);
+        Record record = aerospikeClient.get(null, key, "balance");
+        Bin balance = new Bin("balance", amount + record.getDouble("balance"));
+        aerospikeClient.put(null, key, balance);
         return true;
     }
 }
