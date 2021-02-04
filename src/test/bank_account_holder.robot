@@ -24,7 +24,7 @@ Get Account Holder
     String    response body id    1
     String    response body firstName    Laith
     String    response body lastName    Budairi
-    Number    response body balance    -25.5
+    Number    response body balance    500.0
 
 Get AlL Account Holders
     GET    ${version}${accountHolder}

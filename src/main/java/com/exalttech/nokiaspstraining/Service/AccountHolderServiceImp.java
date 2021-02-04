@@ -9,6 +9,7 @@ import com.aerospike.client.policy.WritePolicy;
 import com.aerospike.client.query.RecordSet;
 import com.aerospike.client.query.Statement;
 import com.exalttech.nokiaspstraining.model.AccountHolder;
+import com.exalttech.nokiaspstraining.repository.AccountHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,12 @@ public class AccountHolderServiceImp implements AccountHolderService {
     @Autowired
     AerospikeClient aerospikeClient;
 
+    @Autowired
+    private AccountHolderRepository accountHolderRepository;
+
     private final String namespace = "test";
 
+    //todo Use AeroSpike-Spring-Data instead of AeroSpike-Client
     @Override
     public List<AccountHolder> getAllAccountHolders() {
         QueryPolicy queryPolicy = new QueryPolicy();
@@ -44,37 +49,20 @@ public class AccountHolderServiceImp implements AccountHolderService {
 
             list.add(accountHolder);
         }
+//        List<AccountHolder> list = new ArrayList<AccountHolder>();
+//        accountHolderRepository.findAll();
         return list;
     }
 
     @Override
     public AccountHolder getAccountHolder(String id) {
-        WritePolicy writePolicy = new WritePolicy();
-        writePolicy.setTimeout(3);
-
-        Key key = new Key(namespace, "account_holder", id);
-
-        Record record = aerospikeClient.get(writePolicy, key);
-
-        AccountHolder accountHolder = new AccountHolder();
-        accountHolder.setId(id);
-        accountHolder.setFirstName(record.getString("firstName"));
-        accountHolder.setLastName(record.getString("lastName"));
-        accountHolder.setBalance(record.getDouble("balance"));
-
-        return accountHolder;
+       return  accountHolderRepository.findById(id).get();
     }
 
     @Override
     public boolean createNewAccount(AccountHolder accountHolder) {
-        WritePolicy writePolicy = new WritePolicy();
+        accountHolderRepository.save(accountHolder);
 
-        Key key = new Key(namespace, "account_holder", accountHolder.getId());
-        Bin firstName = new Bin("firstName", accountHolder.getFirstName());
-        Bin lastName = new Bin("lastName", accountHolder.getLastName());
-        Bin balance = new Bin("balance", accountHolder.getBalance());
-
-        aerospikeClient.put(writePolicy, key, firstName, lastName, balance);
         return true;
     }
 
@@ -84,6 +72,7 @@ public class AccountHolderServiceImp implements AccountHolderService {
         Record record = aerospikeClient.get(null, key, "balance");
         Bin balance = new Bin("balance", amount + record.getDouble("balance"));
         aerospikeClient.put(null, key, balance);
+
         return true;
     }
 }

@@ -1,6 +1,9 @@
 package com.exalttech.nokiaspstraining.model;
 
+import org.springframework.data.annotation.Id;
+
 public class AccountHolder {
+    @Id
     private String id;
     private String firstName;
     private String lastName;

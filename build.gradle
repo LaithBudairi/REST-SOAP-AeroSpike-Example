@@ -149,8 +149,8 @@ configurations {
 }
 
 dependencies {
-    implementation 'com.aerospike:aerospike-client:5.0.0'
-
+//    implementation 'com.aerospike:aerospike-client:5.0.0'
+    implementation 'com.aerospike:spring-data-aerospike:2.4.2.RELEASE'
     // tag::dependency[]
     implementation ('org.springframework.boot:spring-boot-starter-web-services') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
